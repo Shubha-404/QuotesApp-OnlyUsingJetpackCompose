@@ -67,5 +67,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    //dependancy to use json file
+    implementation("com.google.code.gson:gson:2.10.1")
 
 }

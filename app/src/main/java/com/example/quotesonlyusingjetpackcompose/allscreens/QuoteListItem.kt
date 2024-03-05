@@ -1,7 +1,11 @@
-package com.example.quotesonlyusingjetpackcompose.screens
+package com.example.quotesonlyusingjetpackcompose.allscreens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,57 +15,72 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.quotesonlyusingjetpackcompose.R
+import com.example.quotesonlyusingjetpackcompose.models.Quote
+
 
 
 @Composable
-fun QuoteListItem() {
+fun QuoteListItem(q : Quote, onClick: ()->Unit) {
     Card(
-//        elevation  = 4.dp,
+        elevation = CardDefaults.cardElevation(20.dp),
+        shape = MaterialTheme.shapes.medium,
+        border = BorderStroke(1.dp, Color(250,20,150)),
         modifier = Modifier
-            .padding(all = 8.dp)
+            .padding(10.dp)
+            .clickable { onClick }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(16.dp)
+                .background(Color.White)
+                .padding(all = 5.dp)
         ) {
             Image(
-                imageVector = Icons.Filled.Favorite,
+                imageVector = Icons.Filled.Create,
+                colorFilter = ColorFilter.tint(Color(153,0,200)),
                 contentDescription = "",
                 alignment = Alignment.CenterStart,
                 modifier = Modifier
                     .size(40.dp)
                     .rotate(0F)
-                    .background(Color(0, 0, 0, 1))
             )
 
             //Spacer is used to give space between items----> I can also use padding instead of Spacer
-            Spacer(modifier = Modifier.padding(10.dp))
+            Spacer(modifier = Modifier
+                .padding(10.dp)
+            )
 
             Column(
-                modifier = Modifier.weight(1f)
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .weight(1f)
             ) {
                 Text(
-                    text = "Life is a race not a journey.",
+                    text = q.quote,
                     style = MaterialTheme.typography.titleMedium,
                     fontSize = 20.sp,
+                    color = Color(0,0,0),
                     modifier = Modifier
                         .padding(bottom = 8.dp)
                     )
@@ -72,10 +91,11 @@ fun QuoteListItem() {
                         .height(1.dp)
                 )
                 Text(
-                    text = "Rana",
+                    text = q.author,
                     style = MaterialTheme.typography.titleSmall,
                     fontStyle = FontStyle.Italic,
                     fontSize = 15.sp,
+                    color = Color(0,0,0),
                     modifier = Modifier
                         .padding(top = 8.dp)
 
@@ -85,24 +105,6 @@ fun QuoteListItem() {
     }
 }
 
-@Preview(showSystemUi = false, showBackground = true)
-@Composable
-fun QuoteDetails() {
-    Column{
-        Text(
-            text = "Testing Font ojuju",
-            fontFamily = FontFamily(Font(R.font.ojuju)),
-            fontSize = 40.sp,
-            color = Color(0,55,255),
-            fontWeight = FontWeight(700)
-        )
-        Text(
-            text = "Testing Font swirly",
-            fontFamily = FontFamily(Font(R.font.swirly)) ,
-            fontSize = 40.sp,
-            color = Color(255,55,155),
-            fontWeight = FontWeight(400)
-        )
-    }
 
-}
+
+
