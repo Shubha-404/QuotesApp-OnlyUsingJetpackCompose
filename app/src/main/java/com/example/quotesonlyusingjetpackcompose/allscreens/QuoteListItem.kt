@@ -3,7 +3,6 @@ package com.example.quotesonlyusingjetpackcompose.allscreens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,24 +15,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quotesonlyusingjetpackcompose.models.Quote
@@ -41,14 +34,21 @@ import com.example.quotesonlyusingjetpackcompose.models.Quote
 
 
 @Composable
-fun QuoteListItem(q : Quote, onClick: ()->Unit) {
+fun QuoteListItem(q: Quote, onClick: (q: Quote) -> Unit) {
     Card(
-        elevation = CardDefaults.cardElevation(20.dp),
+        elevation = CardDefaults.cardElevation(100.dp),
         shape = MaterialTheme.shapes.medium,
-        border = BorderStroke(1.dp, Color(250,20,150)),
+        border = BorderStroke(
+            1.dp,
+            Brush.sweepGradient(
+                colors = listOf(
+                    Color(100, 100, 255),
+                    Color(255, 100, 150),
+                )
+            )),
         modifier = Modifier
             .padding(10.dp)
-            .clickable { onClick }
+            .clickable { onClick(q) }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

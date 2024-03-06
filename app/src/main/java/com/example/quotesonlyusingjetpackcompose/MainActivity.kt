@@ -16,9 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.quotesonlyusingjetpackcompose.allscreens.QuoteDetails
 import com.example.quotesonlyusingjetpackcompose.allscreens.QuoteListScreen
 import com.example.quotesonlyusingjetpackcompose.ui.theme.QuotesOnlyUsingJetpackComposeTheme
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,13 +28,13 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //Background Thread
         CoroutineScope(Dispatchers.IO).launch {
-            delay(1500)
+            delay(1000)
             DataManager.loadAssetsFromFile(applicationContext)
         }
-
-        //Mail Thread
+        //Main Thread
 //        DataManager.loadAssetsFromFile(this)
 
         setContent {
@@ -53,8 +55,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun app(){
     if(DataManager.isDataLoaded.value){
-        QuoteListScreen(data = DataManager.data) {
-
+        if(DataManager.currentScreen.value == ScreenState.QUOTELISTSCREEN){
+            QuoteListScreen(data = DataManager.data) {
+                DataManager.switchScreen(it)
+            }
+        }
+        else if (DataManager.currentScreen.value == ScreenState.QUOTEDETAILSSCREEN){
+            DataManager.currentQuote?.let { QuoteDetails(q = it) }
         }
     }
     else{
@@ -70,4 +77,12 @@ fun app(){
                 )
         }
     }
+}
+
+
+
+enum class ScreenState(){
+//    SPLASH,
+    QUOTELISTSCREEN,
+    QUOTEDETAILSSCREEN
 }

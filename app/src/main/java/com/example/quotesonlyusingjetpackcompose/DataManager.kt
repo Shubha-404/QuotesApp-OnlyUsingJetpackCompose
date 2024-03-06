@@ -10,7 +10,7 @@ object DataManager {
 
     //Process to use json file in app
     //Read the json file
-
+    var currentQuote : Quote? = null
     var data = emptyArray<Quote>()
     var isDataLoaded= mutableStateOf(false)
     fun loadAssetsFromFile(context: Context){
@@ -25,4 +25,16 @@ object DataManager {
         isDataLoaded.value=true
     }
 
+
+
+    var currentScreen = mutableStateOf(ScreenState.QUOTELISTSCREEN)
+    fun switchScreen(q: Quote?){
+        if(currentScreen.value == ScreenState.QUOTELISTSCREEN){
+            currentQuote=q
+            currentScreen.value = ScreenState.QUOTEDETAILSSCREEN
+        }
+        else{
+            currentScreen.value = ScreenState.QUOTELISTSCREEN
+        }
+    }
 }

@@ -1,17 +1,13 @@
 package com.example.quotesonlyusingjetpackcompose.allscreens
 
-import android.graphics.Paint.Style
-import android.icu.text.TimeZoneFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -19,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.example.quotesonlyusingjetpackcompose.models.Quote
 
 @Composable
-fun QuoteListScreen(data: Array<Quote>, onClick: () -> Unit) {
+fun QuoteListScreen(data: Array<Quote>, onClick: (q: Quote) -> Unit) {
     Column(
         modifier = Modifier
             .background(Color(255,255,255))
@@ -35,9 +31,7 @@ fun QuoteListScreen(data: Array<Quote>, onClick: () -> Unit) {
                 .fillMaxWidth(1f)
 
         )
-        QuoteList(data = data) {
-            onClick()
-        }
+        QuoteList(data = data, onClick)
 
     }
 }

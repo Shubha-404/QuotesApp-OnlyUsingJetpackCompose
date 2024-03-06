@@ -7,12 +7,10 @@ import com.example.quotesonlyusingjetpackcompose.models.Quote
 
 
 @Composable
-fun QuoteList(data: Array<Quote>, onClick : ()-> Unit) {
+fun QuoteList(data: Array<Quote>, onClick: (q: Quote) -> Unit) {
     LazyColumn(content = {
         items(data){
-            QuoteListItem(q = it) {
-                onClick()
-            }
+            QuoteListItem(q = it,onClick)
         }
     })
 
